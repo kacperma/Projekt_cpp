@@ -15,9 +15,9 @@ Projekt zostanie wykonany przez dwie osoby: Kacper Malinowski (310442), Ewa Pawl
 - możliwość zapisu do różnych formatów (png,jpeg)
 
 # Harmonogram
-03.11.2020 - Raport I
-17.11.2020 - Raport II
-01.12.2020 - Raport III
-15.12.2020 - Raport IV
-12.01.2021 - Prototyp
-02.02.2021 - Projekt końcowy i prezentacja
+- do 03.11.2020 - Stworzenie prostego okna i prototypu rysowania
+- do 17.11.2020 - Implementacja poszczególnych narzędzi
+- do 01.12.2020 - Implementacja funkcji kopiuj/wytnij/wklej
+- do 15.12.2020 - Otwieranie oraz zapis do plików
+- do 12.01.2021 - Dodawanie dodatkowych funkcji
+- do 02.02.2021 - Optymalizacja oraz przygotowanie do prezentacji

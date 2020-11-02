@@ -29,7 +29,7 @@ void main_window::drawing_color()
 {
     QColor new_color = QColorDialog::getColor(paint_Area->drawing_color());
     if (new_color.isValid())
-        paint_Area->setPenColor(new_color);
+        paint_Area->set_draw_color(new_color);
 }
 
 //okno zmiany grobuści narzędzia
@@ -42,7 +42,7 @@ void main_window::drawing_width()
                                          paint_Area->drawing_width(), 1, 50, 1, &ok);
 
     if (ok)
-        paint_Area->setPenWidth(new_width);
+        paint_Area->set_draw_width(new_width);
 }
 
 //stworzenie akcji które użytkownik może wykonać

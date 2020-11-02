@@ -14,8 +14,8 @@ public:
     paint_area(QWidget *parent = nullptr);
 
 
-    void setPenColor(const QColor &new_color);
-    void setPenWidth(int new_width);
+    void set_draw_color(const QColor &new_color);
+    void set_draw_width(int new_width);
 
     //zwracanie wartości koloru pędzla
     QColor drawing_color() const {return draw_color;};

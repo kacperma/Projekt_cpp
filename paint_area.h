@@ -13,6 +13,10 @@ class paint_area : public QWidget
 public:
     paint_area(QWidget *parent = nullptr);
 
+
+    void setPenColor(const QColor &new_color);
+    void setPenWidth(int new_width);
+
     //zwracanie wartości koloru pędzla
     QColor drawing_color() const {return draw_color;};
     //zwracanie wartości grubości pędzla

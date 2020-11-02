@@ -82,8 +82,17 @@ void paint_area::resize_image(QImage *image, const QSize &new_size)
     *image = new_image;
 }
 
+//zmiana koloru pędzla
+void paint_area::setPenColor(const QColor &new_color)
+{
+    draw_color = new_color;
+}
 
-
+//zmiana grubości pędzla
+void paint_area::setPenWidth(int new_width)
+{
+    draw_width = new_width;
+}
 
 
 

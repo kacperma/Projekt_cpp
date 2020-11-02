@@ -17,6 +17,10 @@ public:
 protected:
     void close_event(QCloseEvent *event);
 
+private slots:
+    void drawing_color();
+    void drawing_width();
+
 private:
     void create_actions();
     void create_menu();
@@ -24,6 +28,8 @@ private:
     QMenu *option_menu;
     paint_area *paint_Area;
     QAction *exit_action;
+    QAction *draw_color_act;
+    QAction *draw_width_act;
 
 
 };

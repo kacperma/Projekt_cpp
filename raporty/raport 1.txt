@@ -1,0 +1,5 @@
+Raport z dnia 03.11.2020
+Stworzenie podstawowego okna wraz z rysowaniem - Kacper Malinowski
+Zmiana koloru i grubości pędzla - Ewa Pawlik
+W kolejnych 2 tygodniach zamierzamy zaimplementować różne narzędzia typu gumka, wypełnienie, rysowanie podstawowych figur itp.
+Na tym etapie nie spotkaliśmy się z większymi problemami.

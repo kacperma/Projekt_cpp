@@ -20,6 +20,8 @@ protected:
 private slots:
     void drawing_color();
     void drawing_width();
+    void simple_tool();
+    void flood_fill_tool();
 
 private:
     void create_actions();
@@ -30,6 +32,8 @@ private:
     QAction *exit_action;
     QAction *draw_color_act;
     QAction *draw_width_act;
+    QAction *simple_tool_act;
+    QAction *flood_fill_tool_act;
 
 
 };

@@ -5,6 +5,13 @@
 #include <QImage>
 #include <QPoint>
 #include <QWidget>
+#include <iostream>
+#include <string>
+enum tool_type
+{
+    simple_drawing_tool_type,
+    flood_fill_tool_type
+};
 
 class paint_area : public QWidget
 {
@@ -16,11 +23,14 @@ public:
 
     void set_draw_color(const QColor &new_color);
     void set_draw_width(int new_width);
+    void set_tool_type(tool_type new_tool);
 
     //zwracanie wartości koloru pędzla
-    QColor drawing_color() const {return draw_color;};
+    QColor return_draw_color() const {return draw_color;};
     //zwracanie wartości grubości pędzla
-    int drawing_width() const {return draw_width;};
+    int return_draw_width() const {return draw_width;};
+    int return_last_point_x() const {return last_point.x();};
+    int return_last_point_y() const {return last_point.y();};
 
 protected:
     //funkjcie dziedziczone z klasy QWidget
@@ -33,16 +43,19 @@ protected:
 private:
     void draw_line(const QPoint &end_point);
     void resize_image(QImage *image, const QSize &new_size);
+    void flood_fill(QPoint point);
 
     //czy użytkownik rysuje
     bool drawing = false;
     //grubość pędzla
-    int draw_width = 1;
+    int draw_width = 10;
     //kolor pędzla
     QColor draw_color = Qt::black;
     QImage image;
     //ostatni punkt
     QPoint last_point;
+
+    tool_type drawing_tool = simple_drawing_tool_type;
 };
 
 #endif // PAINT_AREA_H

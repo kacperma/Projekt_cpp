@@ -1,0 +1,5 @@
+Raport z dnia 17.11.2020
+Napisanie wypełnienia i lekka refaktoryzacja kodu - Kacper Malinowski
+Stworzenie 3 różnych typów pędzla, rysowanej linii - Ewa Pawlik
+Problem sprawiło rysowanie prostych kształtów oraz wpisywania tekstu, zajmie nam to więcej czasu niż wcześniej przyjeliśmy.
+Algorytm wypełnienia działa zbyt wolno więc w kolejnych tygodniach zostanie on zoptymalizowany.

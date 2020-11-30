@@ -20,13 +20,8 @@ main_window::main_window(QWidget *parent) : QMainWindow(parent), paint_Area(new 
     setCentralWidget(paint_Area);
     create_actions();
     create_menu();
-<<<<<<< HEAD
     setWindowTitle(tr("Jobla idzie dostać"));
     resize(800,800);
-=======
-    setWindowTitle(tr("iks de de umrzeć mi sie chce"));
-    resize(500,500);
->>>>>>> edPaw
 }
 
 //przy próbie zamknięcia okna sprawdź -> czy wprowadzono zmiany
@@ -119,7 +114,6 @@ void main_window::scratch_tool()
     paint_Area->set_tool_type(scratch_tool_type);
 }
 
-<<<<<<< HEAD
 void main_window::rectangle_tool()
 {
     paint_Area->set_tool_type(draw_rectangle_tool_type);
@@ -138,11 +132,9 @@ void main_window::straight_line_tool()
 void main_window::triangle_tool()
 {
     paint_Area->set_tool_type(draw_triangle_tool_type);
-=======
 void main_window::text_tool()
 {
     paint_Area->set_tool_type(text_tool_type);
->>>>>>> edPaw
 }
 
 void main_window::rectangular_triangle_tool()
@@ -156,13 +148,11 @@ void main_window::create_actions()
     exit_action = new QAction(tr("E&xit"), this);
     connect(exit_action, &QAction::triggered, this, &main_window::close);
 
-<<<<<<< HEAD
     main_color_act = new QAction(tr("Color"), this);
     connect(main_color_act, SIGNAL(triggered()), this, SLOT(set_main_color()));
 
     second_color_act = new QAction(tr("Color"), this);
     connect(second_color_act, SIGNAL(triggered()), this, SLOT(set_second_color()));
-=======
     open_act = new QAction(tr("&Open..."), this);
     connect(open_act, SIGNAL(triggered()), this, SLOT(open()));
 
@@ -179,7 +169,6 @@ void main_window::create_actions()
 
     draw_color_act = new QAction(tr("Color"), this);
     connect(draw_color_act, SIGNAL(triggered()), this, SLOT(drawing_color()));
->>>>>>> edPaw
 
     draw_width_act = new QAction(tr("Thicccc"), this);
     connect(draw_width_act, SIGNAL(triggered()), this, SLOT(set_width()));
@@ -202,14 +191,11 @@ void main_window::create_actions()
     scratch_tool_act = new QAction(tr("Scratch brush"), this);
     connect(scratch_tool_act, SIGNAL(triggered()), this, SLOT(scratch_tool()));
 
-<<<<<<< HEAD
     draw_rectangle_act = new QAction(tr("Rectangle"), this);
     connect(draw_rectangle_act, SIGNAL(triggered()), this, SLOT(rectangle_tool()));
-=======
     text_tool_act = new QAction(tr("Text"), this);
     connect(text_tool_act, SIGNAL(triggered()), this, SLOT(text_tool()));
 
->>>>>>> edPaw
 
     draw_circle_act = new QAction(tr("Circle"), this);
     connect(draw_circle_act, SIGNAL(triggered()), this, SLOT(circle_tool()));
@@ -240,7 +226,6 @@ void main_window::create_menu()
     menuBar()->addMenu(save_menu);
     menuBar()->addAction(open_act);
 
-<<<<<<< HEAD
 
     menuBar()->addAction(main_color_act);
     menuBar()->addAction(second_color_act);
@@ -254,7 +239,6 @@ void main_window::create_menu()
     menuBar()->addAction(draw_rectangular_triangle_act);
 }
 
-=======
     menuBar()->addAction(text_tool_act);
     menuBar()->addAction(draw_color_act);
     menuBar()->addAction(draw_width_act);
@@ -296,7 +280,6 @@ bool main_window::save_file(const QByteArray &file_format)
 }
 
 
->>>>>>> edPaw
 main_window::~main_window()
 {
 }

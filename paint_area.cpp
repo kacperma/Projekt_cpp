@@ -5,11 +5,8 @@
 #include <QPainter>
 #include <QRect>
 #include <QStack>
-<<<<<<< HEAD
 #include <cmath>
-=======
 #include <QLineEdit>
->>>>>>> edPaw
 
 paint_area::paint_area(QWidget *parent) : QWidget(parent)
 {
@@ -108,24 +105,20 @@ void paint_area::mousePressEvent(QMouseEvent *event)
             }
             break;
         }
-<<<<<<< HEAD
         case draw_rectangle_tool_type:
         {
             if(event->button() == Qt::LeftButton)
             {
                 start_point = event->pos();
-=======
         case text_tool_type:
         {
             if(event->button() == Qt::LeftButton)
             {
                 last_point = event->pos();
->>>>>>> edPaw
                 drawing = true;
             }
             break;
         }
-<<<<<<< HEAD
         case draw_cricle_tool_type:
         {
             if(event->button() == Qt::LeftButton)
@@ -163,8 +156,6 @@ void paint_area::mousePressEvent(QMouseEvent *event)
             break;
         }
 
-=======
->>>>>>> edPaw
 
 
     }
@@ -222,7 +213,6 @@ void paint_area::mouseMoveEvent(QMouseEvent *event)
             }
             break;
         }
-<<<<<<< HEAD
         case draw_rectangle_tool_type:
         {
             break;
@@ -241,14 +231,12 @@ void paint_area::mouseMoveEvent(QMouseEvent *event)
         }
         case draw_rectangular_triangle_tool_type:
         {
-=======
         case text_tool_type:
         {
             if((event->buttons() & Qt::LeftButton) && drawing == true)
             {
                 generate_text(event->pos());
             }
->>>>>>> edPaw
             break;
         }
 
@@ -312,7 +300,6 @@ void paint_area::mouseReleaseEvent(QMouseEvent *event)
             }
             break;
         }
-<<<<<<< HEAD
         case draw_rectangle_tool_type:
         {
             if(event->button() == Qt::LeftButton && drawing == true)
@@ -354,13 +341,11 @@ void paint_area::mouseReleaseEvent(QMouseEvent *event)
             if(event->button() == Qt::LeftButton && drawing == true)
             {
                 draw_rectangular_triangle(event->pos());
-=======
         case text_tool_type:
         {
             if(event->button() == Qt::LeftButton && drawing == true)
             {
                 generate_text(event->pos());
->>>>>>> edPaw
                 drawing = false;
             }
             break;
@@ -504,7 +489,6 @@ void paint_area::flood_fill(QPoint point)
     return;
 }
 
-<<<<<<< HEAD
 //prostokąt
 void paint_area::draw_rectangle(const QPoint &end_point)
 {
@@ -611,7 +595,6 @@ void paint_area::draw_rectangular_triangle(const QPoint &end_point)
     painter.setPen(QPen(main_color, draw_width));
     painter.drawPolygon(points, 3);
     update();
-=======
 
 
 void paint_area::generate_text(const QPoint &end_point)
@@ -633,17 +616,12 @@ void paint_area::generate_text(const QPoint &end_point)
     QFontMetrics metrics(painter.font());
 
     modified = true;
->>>>>>> edPaw
 
 }
 
 
 
 
-<<<<<<< HEAD
-=======
-
->>>>>>> edPaw
 //zmiana wielkości okna
 void paint_area::resize_image(QImage *image, const QSize &new_size)
 {

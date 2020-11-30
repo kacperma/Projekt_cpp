@@ -5,6 +5,7 @@
 #include <QPainter>
 #include <QRect>
 #include <QStack>
+#include <QLineEdit>
 
 paint_area::paint_area(QWidget *parent) : QWidget(parent)
 {
@@ -103,7 +104,15 @@ void paint_area::mousePressEvent(QMouseEvent *event)
             }
             break;
         }
-
+        case text_tool_type:
+        {
+            if(event->button() == Qt::LeftButton)
+            {
+                last_point = event->pos();
+                drawing = true;
+            }
+            break;
+        }
 
 
     }
@@ -158,6 +167,14 @@ void paint_area::mouseMoveEvent(QMouseEvent *event)
             if((event->buttons() & Qt::LeftButton) && drawing == true)
             {
                 draw_scratch_line(event->pos());
+            }
+            break;
+        }
+        case text_tool_type:
+        {
+            if((event->buttons() & Qt::LeftButton) && drawing == true)
+            {
+                generate_text(event->pos());
             }
             break;
         }
@@ -218,6 +235,15 @@ void paint_area::mouseReleaseEvent(QMouseEvent *event)
             if(event->button() == Qt::LeftButton && drawing == true)
             {
                 draw_scratch_line(event->pos());
+                drawing = false;
+            }
+            break;
+        }
+        case text_tool_type:
+        {
+            if(event->button() == Qt::LeftButton && drawing == true)
+            {
+                generate_text(event->pos());
                 drawing = false;
             }
             break;
@@ -360,6 +386,34 @@ void paint_area::flood_fill(QPoint point)
     modified = true;
     return;
 }
+
+
+
+void paint_area::generate_text(const QPoint &end_point)
+{
+    QPainter painter(&image);
+    int rad = (draw_width / 2) + 2;
+
+    QString text = QInputDialog::getText(this, tr("Text"), tr("Enter text:"), QLineEdit::Normal, tr("Qt"));
+
+    QFont bigger_font = painter.font();
+    bigger_font.setBold(true);
+    bigger_font.setPointSize(bigger_font.pointSize() + rad);
+    painter.setPen(draw_color);
+    painter.setFont(bigger_font);
+
+
+    painter.drawText(end_point, QString(text));
+
+    QFontMetrics metrics(painter.font());
+
+    modified = true;
+
+}
+
+
+
+
 
 //zmiana wielkości okna
 void paint_area::resize_image(QImage *image, const QSize &new_size)

@@ -26,6 +26,7 @@ private slots:
     void air_brush_tool();
     void plaid_tool();
     void scratch_tool();
+    void text_tool();
     void open();
     void save();
 
@@ -48,6 +49,7 @@ private:
     QAction *plaid_tool_act;
     QAction *scratch_tool_act;
     QAction *open_act;
+    QAction *text_tool_act;
     QList<QAction *> save_act;
 
 

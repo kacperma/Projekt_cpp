@@ -106,9 +106,10 @@ void main_window::scratch_tool()
     paint_Area->set_tool_type(scratch_tool_type);
 }
 
-
-
-
+void main_window::text_tool()
+{
+    paint_Area->set_tool_type(text_tool_type);
+}
 
 
 //stworzenie akcji które użytkownik może wykonać
@@ -118,7 +119,6 @@ void main_window::create_actions()
     connect(exit_action, &QAction::triggered, this, &main_window::close);
 
     open_act = new QAction(tr("&Open..."), this);
-    open_act->setShortcuts(QKeySequence::Open);
     connect(open_act, SIGNAL(triggered()), this, SLOT(open()));
 
     foreach (QByteArray format, QImageWriter::supportedImageFormats())
@@ -156,6 +156,9 @@ void main_window::create_actions()
     scratch_tool_act = new QAction(tr("Scratch brush"), this);
     connect(scratch_tool_act, SIGNAL(triggered()), this, SLOT(scratch_tool()));
 
+    text_tool_act = new QAction(tr("Text"), this);
+    connect(text_tool_act, SIGNAL(triggered()), this, SLOT(text_tool()));
+
 
 }
 
@@ -177,8 +180,7 @@ void main_window::create_menu()
     menuBar()->addMenu(save_menu);
     menuBar()->addAction(open_act);
 
-
-
+    menuBar()->addAction(text_tool_act);
     menuBar()->addAction(draw_color_act);
     menuBar()->addAction(draw_width_act);
     menuBar()->addAction(flood_fill_tool_act);

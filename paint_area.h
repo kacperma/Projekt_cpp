@@ -14,7 +14,8 @@ enum tool_type
     eraser_tool_type,
     air_brush_tool_type,
     plaid_tool_type,
-    scratch_tool_type
+    scratch_tool_type,
+    text_tool_type
 };
 
 class paint_area : public QWidget
@@ -54,6 +55,7 @@ private:
     void draw_scratch_line(const QPoint &end_point);
     void resize_image(QImage *image, const QSize &new_size);
     void flood_fill(QPoint point);
+    void generate_text(const QPoint &end_point);
 
 
 

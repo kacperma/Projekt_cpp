@@ -7,6 +7,8 @@
 #include <QWidget>
 #include <iostream>
 #include <string>
+
+//typ wybranego narzędzia
 enum tool_type
 {
     simple_drawing_tool_type,
@@ -14,7 +16,13 @@ enum tool_type
     eraser_tool_type,
     air_brush_tool_type,
     plaid_tool_type,
-    scratch_tool_type
+    scratch_tool_type,
+    draw_rectangle_tool_type,
+    draw_cricle_tool_type,
+    draw_straight_line_tool_type,
+    draw_triangle_tool_type,
+    draw_rectangular_triangle_tool_type,
+
 };
 
 class paint_area : public QWidget
@@ -24,13 +32,14 @@ class paint_area : public QWidget
 public:
     paint_area(QWidget *parent = nullptr);
 
-
-    void set_draw_color(const QColor &new_color);
+    void set_main_color(const QColor &new_color);
+    void set_second_color(const QColor &new_color);
     void set_draw_width(int new_width);
     void set_tool_type(tool_type new_tool);
 
     //zwracanie wartości koloru pędzla
-    QColor return_draw_color() const {return draw_color;};
+    QColor return_main_color() const {return main_color;};
+    QColor return_second_color() const {return second_color;};
     //zwracanie wartości grubości pędzla
     int return_draw_width() const {return draw_width;};
     int return_last_point_x() const {return last_point.x();};
@@ -51,19 +60,29 @@ private:
     void draw_scratch_line(const QPoint &end_point);
     void resize_image(QImage *image, const QSize &new_size);
     void flood_fill(QPoint point);
-
+    void draw_rectangle(const QPoint &end_point);
+    void draw_circle(const QPoint &endpoint);
+    void draw_straight_line(const QPoint &endpoint);
+    void draw_triangle(const QPoint &endpoint);
+    void draw_rectangular_triangle(const QPoint &endpoint);
 
 
     //czy użytkownik rysuje
     bool drawing = false;
     //grubość pędzla
     int draw_width = 10;
+
     //kolor pędzla
-    QColor draw_color = Qt::black;
-    QColor temp = Qt::black;
+    QColor main_color = Qt::black;
+    QColor second_color = Qt::transparent;
+
+    //tymczasowy kolor, potrzebny do gumki
+    QColor temp = main_color;
     QImage image;
     //ostatni punkt
     QPoint last_point;
+    //początkowy punkt, potrzebny do rysowania figur
+    QPoint start_point;
 
     tool_type drawing_tool = simple_drawing_tool_type;
 };

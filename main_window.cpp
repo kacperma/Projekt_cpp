@@ -20,20 +20,28 @@ main_window::main_window(QWidget *parent) : QMainWindow(parent), paint_Area(new 
     setCentralWidget(paint_Area);
     create_actions();
     create_menu();
-    setWindowTitle(tr("OwO idę popełnić sudoku"));
-    resize(500,500);
+    setWindowTitle(tr("Jobla idzie dostać"));
+    resize(800,800);
 }
 
 //okno zmiany koloru narzędzia
-void main_window::drawing_color()
+void main_window::set_main_color()
 {
-    QColor new_color = QColorDialog::getColor(paint_Area->return_draw_color());
+    QColor new_color = QColorDialog::getColor(paint_Area->return_main_color());
     if (new_color.isValid())
-        paint_Area->set_draw_color(new_color);
+        paint_Area->set_main_color(new_color);
+}
+
+//ustawienie drugiego koloru
+void main_window::set_second_color()
+{
+    QColor new_color = QColorDialog::getColor(paint_Area->return_second_color());
+    if (new_color.isValid())
+        paint_Area->set_second_color(new_color);
 }
 
 //okno zmiany grobuści narzędzia
-void main_window::drawing_width()
+void main_window::set_width()
 {
     bool ok;
 
@@ -76,10 +84,30 @@ void main_window::scratch_tool()
     paint_Area->set_tool_type(scratch_tool_type);
 }
 
+void main_window::rectangle_tool()
+{
+    paint_Area->set_tool_type(draw_rectangle_tool_type);
+}
 
+void main_window::circle_tool()
+{
+    paint_Area->set_tool_type(draw_cricle_tool_type);
+}
 
+void main_window::straight_line_tool()
+{
+    paint_Area->set_tool_type(draw_straight_line_tool_type);
+}
 
+void main_window::triangle_tool()
+{
+    paint_Area->set_tool_type(draw_triangle_tool_type);
+}
 
+void main_window::rectangular_triangle_tool()
+{
+    paint_Area->set_tool_type(draw_rectangular_triangle_tool_type);
+}
 
 //stworzenie akcji które użytkownik może wykonać
 void main_window::create_actions()
@@ -87,11 +115,14 @@ void main_window::create_actions()
     exit_action = new QAction(tr("E&xit"), this);
     connect(exit_action, &QAction::triggered, this, &main_window::close);
 
-    draw_color_act = new QAction(tr("Color"), this);
-    connect(draw_color_act, SIGNAL(triggered()), this, SLOT(drawing_color()));
+    main_color_act = new QAction(tr("Color"), this);
+    connect(main_color_act, SIGNAL(triggered()), this, SLOT(set_main_color()));
 
-    draw_width_act = new QAction(tr("Thickness"), this);
-    connect(draw_width_act, SIGNAL(triggered()), this, SLOT(drawing_width()));
+    second_color_act = new QAction(tr("Color"), this);
+    connect(second_color_act, SIGNAL(triggered()), this, SLOT(set_second_color()));
+
+    draw_width_act = new QAction(tr("Thicccc"), this);
+    connect(draw_width_act, SIGNAL(triggered()), this, SLOT(set_width()));
 
     simple_tool_act = new QAction(tr("Simple"), this);
     connect(simple_tool_act, SIGNAL(triggered()), this, SLOT(simple_tool()));
@@ -111,10 +142,21 @@ void main_window::create_actions()
     scratch_tool_act = new QAction(tr("Scratch brush"), this);
     connect(scratch_tool_act, SIGNAL(triggered()), this, SLOT(scratch_tool()));
 
+    draw_rectangle_act = new QAction(tr("Rectangle"), this);
+    connect(draw_rectangle_act, SIGNAL(triggered()), this, SLOT(rectangle_tool()));
 
+    draw_circle_act = new QAction(tr("Circle"), this);
+    connect(draw_circle_act, SIGNAL(triggered()), this, SLOT(circle_tool()));
+
+    draw_straight_line_act = new QAction(tr("Line"), this);
+    connect(draw_straight_line_act, SIGNAL(triggered()), this, SLOT(straight_line_tool()));
+
+    draw_triangle_act = new QAction(tr("Triangle"), this);
+    connect(draw_triangle_act, SIGNAL(triggered()), this, SLOT(triangle_tool()));
+
+    draw_rectangular_triangle_act = new QAction(tr("Rect-triangle"), this);
+    connect(draw_rectangular_triangle_act, SIGNAL(triggered()), this, SLOT(rectangular_triangle_tool()));
 }
-
-
 
 //tworzy pasek manu
 void main_window::create_menu()
@@ -128,17 +170,17 @@ void main_window::create_menu()
 
 
 
-    menuBar()->addAction(draw_color_act);
+    menuBar()->addAction(main_color_act);
+    menuBar()->addAction(second_color_act);
     menuBar()->addAction(draw_width_act);
     menuBar()->addAction(flood_fill_tool_act);
     menuBar()->addAction(eraser_tool_act);
-
+    menuBar()->addAction(draw_rectangle_act);
+    menuBar()->addAction(draw_circle_act);
+    menuBar()->addAction(draw_straight_line_act);
+    menuBar()->addAction(draw_triangle_act);
+    menuBar()->addAction(draw_rectangular_triangle_act);
 }
-
-
-
-
-
 
 main_window::~main_window()
 {

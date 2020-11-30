@@ -5,6 +5,7 @@
 #include <QPainter>
 #include <QRect>
 #include <QStack>
+#include <cmath>
 
 paint_area::paint_area(QWidget *parent) : QWidget(parent)
 {
@@ -34,10 +35,10 @@ void paint_area::mousePressEvent(QMouseEvent *event)
         }
         case eraser_tool_type:
         {
-            temp = return_draw_color();
+            temp = return_main_color();
             if(event->button() == Qt::LeftButton)
             {
-                draw_color = Qt::white;
+                main_color = Qt::white;
                 last_point = event->pos();
                 drawing = true;
             }
@@ -67,6 +68,51 @@ void paint_area::mousePressEvent(QMouseEvent *event)
             if(event->button() == Qt::LeftButton)
             {
                 last_point = event->pos();
+                drawing = true;
+            }
+            break;
+        }
+        case draw_rectangle_tool_type:
+        {
+            if(event->button() == Qt::LeftButton)
+            {
+                start_point = event->pos();
+                drawing = true;
+            }
+            break;
+        }
+        case draw_cricle_tool_type:
+        {
+            if(event->button() == Qt::LeftButton)
+            {
+                start_point = event->pos();
+                drawing = true;
+            }
+            break;
+        }
+        case draw_straight_line_tool_type:
+        {
+            if(event->button() == Qt::LeftButton)
+            {
+                start_point = event->pos();
+                drawing = true;
+            }
+            break;
+        }
+        case draw_triangle_tool_type:
+        {
+            if(event->button() == Qt::LeftButton)
+            {
+                start_point = event->pos();
+                drawing = true;
+            }
+            break;
+        }
+        case draw_rectangular_triangle_tool_type:
+        {
+            if(event->button() == Qt::LeftButton)
+            {
+                start_point = event->pos();
                 drawing = true;
             }
             break;
@@ -129,6 +175,26 @@ void paint_area::mouseMoveEvent(QMouseEvent *event)
             }
             break;
         }
+        case draw_rectangle_tool_type:
+        {
+            break;
+        }
+        case draw_cricle_tool_type:
+        {
+            break;
+        }
+        case draw_straight_line_tool_type:
+        {
+            break;
+        }
+        case draw_triangle_tool_type:
+        {
+            break;
+        }
+        case draw_rectangular_triangle_tool_type:
+        {
+            break;
+        }
 
     }
 }
@@ -157,7 +223,7 @@ void paint_area::mouseReleaseEvent(QMouseEvent *event)
             if(event->button() == Qt::LeftButton && drawing == true)
             {
                 draw_line(event->pos());
-                draw_color = temp;
+                main_color = temp;
                 drawing = false;
             }
             break;
@@ -189,6 +255,51 @@ void paint_area::mouseReleaseEvent(QMouseEvent *event)
             }
             break;
         }
+        case draw_rectangle_tool_type:
+        {
+            if(event->button() == Qt::LeftButton && drawing == true)
+            {
+                draw_rectangle(event->pos());
+                drawing = false;
+            }
+            break;
+        }
+        case draw_cricle_tool_type:
+        {
+            if(event->button() == Qt::LeftButton && drawing == true)
+            {
+                draw_circle(event->pos());
+                drawing = false;
+            }
+            break;
+        }
+        case draw_straight_line_tool_type:
+        {
+            if(event->button() == Qt::LeftButton && drawing == true)
+            {
+                draw_straight_line(event->pos());
+                drawing = false;
+            }
+            break;
+        }
+        case draw_triangle_tool_type:
+        {
+            if(event->button() == Qt::LeftButton && drawing == true)
+            {
+                draw_triangle(event->pos());
+                drawing = false;
+            }
+            break;
+        }
+        case draw_rectangular_triangle_tool_type:
+        {
+            if(event->button() == Qt::LeftButton && drawing == true)
+            {
+                draw_rectangular_triangle(event->pos());
+                drawing = false;
+            }
+            break;
+        }
 
     }
 }
@@ -205,8 +316,8 @@ void paint_area::resizeEvent(QResizeEvent *event)
 {
     if(width() > image.width() || height() > image.height())
     {
-        int new_width = qMax(width() + 128, image.width());
-        int new_height = qMax(height() + 128, image.height());
+        int new_width = qMax(width(), image.width());
+        int new_height = qMax(height(), image.height());
         resize_image(&image, QSize(new_width, new_height));
         update();
     }
@@ -217,7 +328,7 @@ void paint_area::resizeEvent(QResizeEvent *event)
 void paint_area::draw_line(const QPoint &end_point)
 {
     QPainter painter(&image);
-    painter.setPen(QPen(draw_color, draw_width));
+    painter.setPen(QPen(main_color, draw_width));
     painter.setBrush(Qt::SolidPattern);
     painter.drawLine(last_point, end_point);
     int rad = (draw_width / 2) + 2;
@@ -231,7 +342,7 @@ void paint_area::draw_air_brush_line(const QPoint &end_point)
     QPainter painter(&image);
     int rad = (draw_width / 2) + 2;
     int steps = 2 + (end_point - last_point).manhattanLength() / 2;
-    painter.setBrush(QBrush(draw_color, Qt::Dense5Pattern));
+    painter.setBrush(QBrush(main_color, Qt::Dense5Pattern));
     painter.setPen(Qt::NoPen);
 
     for (int i = 0; i < steps; i++)
@@ -252,7 +363,7 @@ void paint_area::draw_plaid_line(const QPoint &end_point)
     QPainter painter(&image);
     int rad = (draw_width / 2) + 2;
     int steps = 2 + (end_point - last_point).manhattanLength() / 2;
-    painter.setBrush(QBrush(draw_color, Qt::CrossPattern));
+    painter.setBrush(QBrush(main_color, Qt::CrossPattern));
     painter.setPen(Qt::NoPen);
 
     for (int i = 0; i < steps; i++)
@@ -273,7 +384,7 @@ void paint_area::draw_scratch_line(const QPoint &end_point)
     QPainter painter(&image);
     int rad = (draw_width / 2) + 2;
     int steps = 2 + (end_point - last_point).manhattanLength() / 2;
-    painter.setBrush(QBrush(draw_color, Qt::FDiagPattern));
+    painter.setBrush(QBrush(main_color, Qt::FDiagPattern));
     painter.setPen(Qt::NoPen);
 
     for (int i = 0; i < steps; i++)
@@ -292,7 +403,7 @@ void paint_area::draw_scratch_line(const QPoint &end_point)
 void paint_area::flood_fill(QPoint point)
 {
     QColor color = image.pixelColor(point);
-    if(draw_color != color)
+    if(main_color != color)
     {
         QStack<QPoint> stack;
         stack.push(point);
@@ -302,7 +413,7 @@ void paint_area::flood_fill(QPoint point)
             if(image.pixelColor(temp_point) == color)
             {
                 //zmiana koloru danego pixela
-                image.setPixelColor(temp_point, draw_color);
+                image.setPixelColor(temp_point, main_color);
 
                 //sprawdzanie czy pixele sąsiednie są w zakresie obrazu oraz wrzucenie ich do stosu
                 if(image.valid(temp_point.x() + 1, temp_point.y()))
@@ -323,6 +434,118 @@ void paint_area::flood_fill(QPoint point)
     return;
 }
 
+//prostokąt
+void paint_area::draw_rectangle(const QPoint &end_point)
+{
+    QPainter painter(&image);
+    painter.setBrush(Qt::SolidPattern);
+    //rysowanie wypełnionego prostokąta
+    if(second_color != Qt::transparent)
+    {
+        painter.setPen(QPen(second_color, draw_width));
+        QRect temp = QRect(start_point.x(),
+                           start_point.y(),
+                           end_point.x() - start_point.x(),
+                           end_point.y() - start_point.y());
+        painter.drawRect(temp);
+        painter.setBrush(QBrush(second_color));
+        painter.fillRect(temp, painter.brush());
+    }
+    //rysowanie obramówki w głównym kolorze
+    painter.setPen(QPen(main_color, draw_width));
+    painter.drawLine(start_point, QPoint(start_point.x(), end_point.y()));
+    painter.drawLine(start_point, QPoint(end_point.x(), start_point.y()));
+    painter.drawLine(QPoint(start_point.x(), end_point.y()), end_point);
+    painter.drawLine(QPoint(end_point.x(), start_point.y()), end_point);
+
+    update();
+}
+
+//okrąg
+void paint_area::draw_circle(const QPoint &end_point)
+{
+    QPainter painter(&image);
+    painter.setBrush(Qt::SolidPattern);
+    //rysowanie wypełnionego koła
+    QRectF temp = QRectF(start_point.x(),
+                         start_point.y(),
+                         end_point.x() - start_point.x(),
+                         end_point.y() - start_point.y());
+    if(second_color != Qt::transparent)
+    {
+        painter.setPen(QPen(second_color, draw_width));
+        painter.setBrush(QBrush(second_color));
+        painter.drawEllipse(temp);
+    }
+    //rysowanie okręgu w danym kolorze
+    painter.setPen(QPen(main_color, draw_width));
+    painter.drawArc(temp, 0, 360 * 16);
+
+    update();
+}
+
+//prosta linia
+void paint_area::draw_straight_line(const QPoint &end_point)
+{
+    QPainter painter(&image);
+    painter.setPen(QPen(main_color, draw_width));
+    painter.setBrush(Qt::SolidPattern);
+    painter.drawLine(start_point, end_point);
+    update();
+}
+
+//trójkąt równoramienny
+void paint_area::draw_triangle(const QPoint &end_point)
+{
+    QPointF points[3] = {
+        QPointF(start_point.x() + abs(end_point.x() - start_point.x())/2, start_point.y()),
+        QPointF(start_point.x(), end_point.y()),
+        QPointF(end_point.x(), end_point.y()),
+    };
+
+    if(start_point.x() > end_point.x())
+    {
+        points[0] = QPointF(end_point.x() + abs(end_point.x() - start_point.x())/2, start_point.y());
+    }
+    QPainter painter(&image);
+    if(second_color != Qt::transparent)
+    {
+        painter.setPen(QPen(second_color, draw_width));
+        painter.setBrush(QBrush(second_color));
+        painter.drawPolygon(points, 3);
+    }
+    painter.setBrush(Qt::NoBrush);
+    painter.setPen(QPen(main_color, draw_width));
+    painter.drawPolygon(points, 3);
+    update();
+}
+
+//trójkąt prostokątny
+void paint_area::draw_rectangular_triangle(const QPoint &end_point)
+{
+    const QPointF points[3] = {
+        QPointF(start_point.x(), start_point.y()),
+        QPointF(start_point.x(), end_point.y()),
+        QPointF(end_point.x(), end_point.y()),
+    };
+
+    QPainter painter(&image);
+    if(second_color != Qt::transparent)
+    {
+        painter.setPen(QPen(second_color, draw_width));
+        painter.setBrush(second_color);
+        painter.drawPolygon(points, 3);
+    }
+    painter.setBrush(Qt::NoBrush);
+    painter.setPen(QPen(main_color, draw_width));
+    painter.drawPolygon(points, 3);
+    update();
+
+}
+
+
+
+
 //zmiana wielkości okna
 void paint_area::resize_image(QImage *image, const QSize &new_size)
 {
@@ -336,10 +559,16 @@ void paint_area::resize_image(QImage *image, const QSize &new_size)
 }
 
 //zmiana koloru pędzla
-void paint_area::set_draw_color(const QColor &new_color)
+void paint_area::set_main_color(const QColor &new_color)
 {
-    draw_color = new_color;
+    main_color = new_color;
 }
+
+void paint_area::set_second_color(const QColor &new_color)
+{
+    second_color = new_color;
+}
+
 
 //zmiana grubości pędzla
 void paint_area::set_draw_width(int new_width)

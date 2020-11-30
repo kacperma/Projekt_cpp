@@ -28,6 +28,9 @@ public:
     void set_draw_color(const QColor &new_color);
     void set_draw_width(int new_width);
     void set_tool_type(tool_type new_tool);
+    bool open_image(const QString &file_name);
+    bool save_image(const QString &file_name, const char *file_format);
+    bool check_modified() const {return modified;};
 
     //zwracanie wartości koloru pędzla
     QColor return_draw_color() const {return draw_color;};
@@ -66,6 +69,9 @@ private:
     QPoint last_point;
 
     tool_type drawing_tool = simple_drawing_tool_type;
+
+    //zmienia się zależnie od tego czy zapisano ostatnie zmiany
+    bool modified = false;
 };
 
 #endif // PAINT_AREA_H

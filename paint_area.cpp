@@ -11,6 +11,38 @@ paint_area::paint_area(QWidget *parent) : QWidget(parent)
     setAttribute(Qt::WA_StaticContents);
 }
 
+
+bool paint_area::open_image(const QString &file_name)
+{
+    QImage loaded_image;
+
+    if (!loaded_image.load(file_name))
+        return false;
+    QSize new_size = loaded_image.size().expandedTo(size());
+    resize_image(&loaded_image, new_size);
+    image = loaded_image;
+    modified = false;
+    update();
+    return true;
+}
+
+bool paint_area::save_image(const QString &file_name, const char *file_format)
+{
+    QImage visible_image = image;
+    resize_image(&visible_image, size());
+
+    if (visible_image.save(file_name, file_format))
+    {
+        modified = false;
+        return true;
+    }
+    else
+        return false;
+
+}
+
+
+
 //event wciskania lewego przycisku
 void paint_area::mousePressEvent(QMouseEvent *event)
 {
@@ -159,6 +191,7 @@ void paint_area::mouseReleaseEvent(QMouseEvent *event)
                 draw_line(event->pos());
                 draw_color = temp;
                 drawing = false;
+                modified = true;
             }
             break;
         }
@@ -220,6 +253,7 @@ void paint_area::draw_line(const QPoint &end_point)
     painter.setPen(QPen(draw_color, draw_width));
     painter.setBrush(Qt::SolidPattern);
     painter.drawLine(last_point, end_point);
+    modified = true;
     int rad = (draw_width / 2) + 2;
     update(QRect(last_point, end_point).normalized().adjusted(-rad,-rad,+rad,+rad));
     last_point = end_point;
@@ -243,6 +277,7 @@ void paint_area::draw_air_brush_line(const QPoint &end_point)
         update(QRect(last_point, end_point).normalized().adjusted(-rad,-rad,+rad,+rad));
         last_point = end_point;
     }
+    modified = true;
 
 }
 
@@ -264,6 +299,7 @@ void paint_area::draw_plaid_line(const QPoint &end_point)
         update(QRect(last_point, end_point).normalized().adjusted(-rad,-rad,+rad,+rad));
         last_point = end_point;
     }
+    modified = true;
 
 }
 
@@ -285,6 +321,7 @@ void paint_area::draw_scratch_line(const QPoint &end_point)
         update(QRect(last_point, end_point).normalized().adjusted(-rad,-rad,+rad,+rad));
         last_point = end_point;
     }
+    modified = true;
 
 }
 
@@ -320,6 +357,7 @@ void paint_area::flood_fill(QPoint point)
         }
     }
     update();
+    modified = true;
     return;
 }
 

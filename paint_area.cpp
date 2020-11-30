@@ -57,7 +57,6 @@ void paint_area::mousePressEvent(QMouseEvent *event)
             {
                 last_point = event->pos();
                 drawing = true;
-
             }
             break;
         }
@@ -79,7 +78,6 @@ void paint_area::mousePressEvent(QMouseEvent *event)
         }
         case air_brush_tool_type:
         {
-
             if(event->button() == Qt::LeftButton)
             {
                 last_point = event->pos();
@@ -110,6 +108,10 @@ void paint_area::mousePressEvent(QMouseEvent *event)
             if(event->button() == Qt::LeftButton)
             {
                 start_point = event->pos();
+                drawing = true;
+            }
+            break;
+        }
         case text_tool_type:
         {
             if(event->button() == Qt::LeftButton)
@@ -155,12 +157,7 @@ void paint_area::mousePressEvent(QMouseEvent *event)
             }
             break;
         }
-
-
-
     }
-
-
 }
 
 //event przy ruszaniu myszką
@@ -231,6 +228,8 @@ void paint_area::mouseMoveEvent(QMouseEvent *event)
         }
         case draw_rectangular_triangle_tool_type:
         {
+            break;
+        }
         case text_tool_type:
         {
             if((event->buttons() & Qt::LeftButton) && drawing == true)
@@ -341,6 +340,10 @@ void paint_area::mouseReleaseEvent(QMouseEvent *event)
             if(event->button() == Qt::LeftButton && drawing == true)
             {
                 draw_rectangular_triangle(event->pos());
+                drawing = false;
+            }
+            break;
+        }
         case text_tool_type:
         {
             if(event->button() == Qt::LeftButton && drawing == true)
@@ -595,6 +598,7 @@ void paint_area::draw_rectangular_triangle(const QPoint &end_point)
     painter.setPen(QPen(main_color, draw_width));
     painter.drawPolygon(points, 3);
     update();
+}
 
 
 void paint_area::generate_text(const QPoint &end_point)
@@ -607,7 +611,7 @@ void paint_area::generate_text(const QPoint &end_point)
     QFont bigger_font = painter.font();
     bigger_font.setBold(true);
     bigger_font.setPointSize(bigger_font.pointSize() + rad);
-    painter.setPen(draw_color);
+    painter.setPen(main_color);
     painter.setFont(bigger_font);
 
 

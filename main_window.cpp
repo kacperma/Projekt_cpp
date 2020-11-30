@@ -132,6 +132,8 @@ void main_window::straight_line_tool()
 void main_window::triangle_tool()
 {
     paint_Area->set_tool_type(draw_triangle_tool_type);
+}
+
 void main_window::text_tool()
 {
     paint_Area->set_tool_type(text_tool_type);
@@ -153,6 +155,7 @@ void main_window::create_actions()
 
     second_color_act = new QAction(tr("Color"), this);
     connect(second_color_act, SIGNAL(triggered()), this, SLOT(set_second_color()));
+
     open_act = new QAction(tr("&Open..."), this);
     connect(open_act, SIGNAL(triggered()), this, SLOT(open()));
 
@@ -167,8 +170,6 @@ void main_window::create_actions()
 
 
 
-    draw_color_act = new QAction(tr("Color"), this);
-    connect(draw_color_act, SIGNAL(triggered()), this, SLOT(drawing_color()));
 
     draw_width_act = new QAction(tr("Thicccc"), this);
     connect(draw_width_act, SIGNAL(triggered()), this, SLOT(set_width()));
@@ -237,10 +238,8 @@ void main_window::create_menu()
     menuBar()->addAction(draw_straight_line_act);
     menuBar()->addAction(draw_triangle_act);
     menuBar()->addAction(draw_rectangular_triangle_act);
-}
 
     menuBar()->addAction(text_tool_act);
-    menuBar()->addAction(draw_color_act);
     menuBar()->addAction(draw_width_act);
     menuBar()->addAction(flood_fill_tool_act);
     menuBar()->addAction(eraser_tool_act);

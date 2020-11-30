@@ -5,12 +5,48 @@
 #include <QPainter>
 #include <QRect>
 #include <QStack>
+<<<<<<< HEAD
 #include <cmath>
+=======
+#include <QLineEdit>
+>>>>>>> edPaw
 
 paint_area::paint_area(QWidget *parent) : QWidget(parent)
 {
     setAttribute(Qt::WA_StaticContents);
 }
+
+
+bool paint_area::open_image(const QString &file_name)
+{
+    QImage loaded_image;
+
+    if (!loaded_image.load(file_name))
+        return false;
+    QSize new_size = loaded_image.size().expandedTo(size());
+    resize_image(&loaded_image, new_size);
+    image = loaded_image;
+    modified = false;
+    update();
+    return true;
+}
+
+bool paint_area::save_image(const QString &file_name, const char *file_format)
+{
+    QImage visible_image = image;
+    resize_image(&visible_image, size());
+
+    if (visible_image.save(file_name, file_format))
+    {
+        modified = false;
+        return true;
+    }
+    else
+        return false;
+
+}
+
+
 
 //event wciskania lewego przycisku
 void paint_area::mousePressEvent(QMouseEvent *event)
@@ -72,15 +108,24 @@ void paint_area::mousePressEvent(QMouseEvent *event)
             }
             break;
         }
+<<<<<<< HEAD
         case draw_rectangle_tool_type:
         {
             if(event->button() == Qt::LeftButton)
             {
                 start_point = event->pos();
+=======
+        case text_tool_type:
+        {
+            if(event->button() == Qt::LeftButton)
+            {
+                last_point = event->pos();
+>>>>>>> edPaw
                 drawing = true;
             }
             break;
         }
+<<<<<<< HEAD
         case draw_cricle_tool_type:
         {
             if(event->button() == Qt::LeftButton)
@@ -118,6 +163,8 @@ void paint_area::mousePressEvent(QMouseEvent *event)
             break;
         }
 
+=======
+>>>>>>> edPaw
 
 
     }
@@ -175,6 +222,7 @@ void paint_area::mouseMoveEvent(QMouseEvent *event)
             }
             break;
         }
+<<<<<<< HEAD
         case draw_rectangle_tool_type:
         {
             break;
@@ -193,6 +241,14 @@ void paint_area::mouseMoveEvent(QMouseEvent *event)
         }
         case draw_rectangular_triangle_tool_type:
         {
+=======
+        case text_tool_type:
+        {
+            if((event->buttons() & Qt::LeftButton) && drawing == true)
+            {
+                generate_text(event->pos());
+            }
+>>>>>>> edPaw
             break;
         }
 
@@ -225,6 +281,7 @@ void paint_area::mouseReleaseEvent(QMouseEvent *event)
                 draw_line(event->pos());
                 main_color = temp;
                 drawing = false;
+                modified = true;
             }
             break;
         }
@@ -255,6 +312,7 @@ void paint_area::mouseReleaseEvent(QMouseEvent *event)
             }
             break;
         }
+<<<<<<< HEAD
         case draw_rectangle_tool_type:
         {
             if(event->button() == Qt::LeftButton && drawing == true)
@@ -296,6 +354,13 @@ void paint_area::mouseReleaseEvent(QMouseEvent *event)
             if(event->button() == Qt::LeftButton && drawing == true)
             {
                 draw_rectangular_triangle(event->pos());
+=======
+        case text_tool_type:
+        {
+            if(event->button() == Qt::LeftButton && drawing == true)
+            {
+                generate_text(event->pos());
+>>>>>>> edPaw
                 drawing = false;
             }
             break;
@@ -331,6 +396,7 @@ void paint_area::draw_line(const QPoint &end_point)
     painter.setPen(QPen(main_color, draw_width));
     painter.setBrush(Qt::SolidPattern);
     painter.drawLine(last_point, end_point);
+    modified = true;
     int rad = (draw_width / 2) + 2;
     update(QRect(last_point, end_point).normalized().adjusted(-rad,-rad,+rad,+rad));
     last_point = end_point;
@@ -354,6 +420,7 @@ void paint_area::draw_air_brush_line(const QPoint &end_point)
         update(QRect(last_point, end_point).normalized().adjusted(-rad,-rad,+rad,+rad));
         last_point = end_point;
     }
+    modified = true;
 
 }
 
@@ -375,6 +442,7 @@ void paint_area::draw_plaid_line(const QPoint &end_point)
         update(QRect(last_point, end_point).normalized().adjusted(-rad,-rad,+rad,+rad));
         last_point = end_point;
     }
+    modified = true;
 
 }
 
@@ -396,6 +464,7 @@ void paint_area::draw_scratch_line(const QPoint &end_point)
         update(QRect(last_point, end_point).normalized().adjusted(-rad,-rad,+rad,+rad));
         last_point = end_point;
     }
+    modified = true;
 
 }
 
@@ -431,9 +500,11 @@ void paint_area::flood_fill(QPoint point)
         }
     }
     update();
+    modified = true;
     return;
 }
 
+<<<<<<< HEAD
 //prostokąt
 void paint_area::draw_rectangle(const QPoint &end_point)
 {
@@ -540,12 +611,39 @@ void paint_area::draw_rectangular_triangle(const QPoint &end_point)
     painter.setPen(QPen(main_color, draw_width));
     painter.drawPolygon(points, 3);
     update();
+=======
+
+
+void paint_area::generate_text(const QPoint &end_point)
+{
+    QPainter painter(&image);
+    int rad = (draw_width / 2) + 2;
+
+    QString text = QInputDialog::getText(this, tr("Text"), tr("Enter text:"), QLineEdit::Normal, tr("Qt"));
+
+    QFont bigger_font = painter.font();
+    bigger_font.setBold(true);
+    bigger_font.setPointSize(bigger_font.pointSize() + rad);
+    painter.setPen(draw_color);
+    painter.setFont(bigger_font);
+
+
+    painter.drawText(end_point, QString(text));
+
+    QFontMetrics metrics(painter.font());
+
+    modified = true;
+>>>>>>> edPaw
 
 }
 
 
 
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> edPaw
 //zmiana wielkości okna
 void paint_area::resize_image(QImage *image, const QSize &new_size)
 {

@@ -27,6 +27,7 @@ private slots:
     void air_brush_tool();
     void plaid_tool();
     void scratch_tool();
+<<<<<<< HEAD
     void rectangle_tool();
     void circle_tool();
     void straight_line_tool();
@@ -35,12 +36,20 @@ private slots:
 
 
 
+=======
+    void text_tool();
+    void open();
+    void save();
+>>>>>>> edPaw
 
 private:
     void create_actions();
     void create_menu();
+    bool check_save(); //sprawdza czy są zmiany do zapisania
+    bool save_file(const QByteArray &file_format); //otwiera okno zapisu
 
     QMenu *option_menu;
+    QMenu *save_menu;
     paint_area *paint_Area;
     QAction *exit_action;
     QAction *main_color_act;
@@ -52,12 +61,18 @@ private:
     QAction *air_brush_tool_act;
     QAction *plaid_tool_act;
     QAction *scratch_tool_act;
+<<<<<<< HEAD
     QAction *draw_rectangle_act;
     QAction *draw_circle_act;
     QAction *draw_straight_line_act;
     QAction *draw_triangle_act;
     QAction *draw_rectangular_triangle_act;
 
+=======
+    QAction *open_act;
+    QAction *text_tool_act;
+    QList<QAction *> save_act;
+>>>>>>> edPaw
 
 
 

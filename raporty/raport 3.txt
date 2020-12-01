@@ -1,0 +1,4 @@
+Raport z dnia 01.12.2020
+Rysowanie prostych figur oraz lekka refaktoryzacja - Kacper Malinowski
+Wpisywanie tekstu, otwieranie oraz zapis do plików - Ewa Pawlik
+Na tym etapie nie spotkaliśmy się z większymi problemami.

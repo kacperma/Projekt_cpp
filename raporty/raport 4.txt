@@ -1,0 +1,4 @@
+Raport z dnia 15.12.2020
+Usprawnianie algorytmu rysowania kształtów oraz wypełnienia - Kacper Malinowski
+Poprawianie funkcji wpisywania tekstu oraz lekka refaktoryzacja - Ewa Pawlik
+Na tym etapie nie spotkaliśmy się z większymi problemami.

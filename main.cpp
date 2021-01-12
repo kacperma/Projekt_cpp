@@ -1,6 +1,8 @@
 #include "main_window.h"
 #include "paint_area.h"
 #include <QApplication>
+#include <iostream>
+#include <QDir>
 
 int main(int argc, char *argv[])
 {

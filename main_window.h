@@ -47,6 +47,7 @@ private:
 
     QMenu *option_menu;
     QMenu *save_menu;
+    QMenu *file_menu;
     paint_area *paint_Area;
     QAction *exit_action;
     QAction *main_color_act;

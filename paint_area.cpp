@@ -7,6 +7,7 @@
 #include <QStack>
 #include <cmath>
 #include <QLineEdit>
+#include <QPointer>
 
 paint_area::paint_area(QWidget *parent) : QWidget(parent)
 {
@@ -496,15 +497,20 @@ void paint_area::flood_fill(QPoint point)
 void paint_area::draw_rectangle(const QPoint &end_point)
 {
     QPainter painter(&image);
+
+    QPen pen = QPen(main_color, draw_width);
+    pen.setJoinStyle(Qt::MiterJoin);
+    painter.setPen(pen);
+    QRect temp = QRect(start_point.x(),
+                       start_point.y(),
+                       end_point.x() - start_point.x(),
+                       end_point.y() - start_point.y());
     painter.setBrush(Qt::SolidPattern);
     //rysowanie wypełnionego prostokąta
     if(second_color != Qt::transparent)
     {
         painter.setPen(QPen(second_color, draw_width));
-        QRect temp = QRect(start_point.x(),
-                           start_point.y(),
-                           end_point.x() - start_point.x(),
-                           end_point.y() - start_point.y());
+
         painter.drawRect(temp);
         painter.setBrush(QBrush(second_color));
         painter.fillRect(temp, painter.brush());
@@ -600,7 +606,7 @@ void paint_area::draw_rectangular_triangle(const QPoint &end_point)
     update();
 }
 
-
+//wpisywanie tekstu
 void paint_area::generate_text(const QPoint &end_point)
 {
     QPainter painter(&image);
@@ -622,9 +628,6 @@ void paint_area::generate_text(const QPoint &end_point)
     modified = true;
 
 }
-
-
-
 
 //zmiana wielkości okna
 void paint_area::resize_image(QImage *image, const QSize &new_size)

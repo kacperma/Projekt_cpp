@@ -87,7 +87,7 @@ void main_window::set_width()
 
 void main_window::simple_tool()
 {
-    QWidget::setCursor(QCursor(QPixmap("resources/cursor/pencil2.png")));
+    QWidget::setCursor(QCursor(QPixmap("resources/cursor/pencil.png")));
     paint_Area->set_tool_type(simple_drawing_tool_type);
 }
 
@@ -188,39 +188,52 @@ void main_window::create_actions()
     connect(draw_width_act, SIGNAL(triggered()), this, SLOT(set_width()));
 
     simple_tool_act = new QAction(tr("Simple"), this);
+    simple_tool_act->setIcon(QIcon("resources/cursor/pencil.png"));
     connect(simple_tool_act, SIGNAL(triggered()), this, SLOT(simple_tool()));
 
-    flood_fill_tool_act = new QAction(tr("Wypełnienie"), this);
+    flood_fill_tool_act = new QAction(tr(""), this);
+    flood_fill_tool_act->setIcon(QIcon("resources/cursor/fill.png"));
     connect(flood_fill_tool_act, SIGNAL(triggered()), this, SLOT(flood_fill_tool()));
 
-    eraser_tool_act = new QAction(tr("Gumka"), this);
+    eraser_tool_act = new QAction(tr(""), this);
+    eraser_tool_act->setIcon(QIcon("resources/cursor/eraser.png"));
     connect(eraser_tool_act, SIGNAL(triggered()), this, SLOT(eraser_tool()));
 
-    air_brush_tool_act = new QAction(tr("Air brush"), this);
+    air_brush_tool_act = new QAction(tr("Air"), this);
+    air_brush_tool_act->setIcon(QIcon("resources/cursor/airbrush.png"));
     connect(air_brush_tool_act, SIGNAL(triggered()), this, SLOT(air_brush_tool()));
 
-    plaid_tool_act = new QAction(tr("Plaid brush"), this);
+    plaid_tool_act = new QAction(tr("Plaid"), this);
+    plaid_tool_act->setIcon(QIcon("resources/cursor/airbrush.png"));
     connect(plaid_tool_act, SIGNAL(triggered()), this, SLOT(plaid_tool()));
 
-    scratch_tool_act = new QAction(tr("Scratch brush"), this);
+    scratch_tool_act = new QAction(tr("Scratch"), this);
+    scratch_tool_act->setIcon(QIcon("resources/cursor/airbrush.png"));
     connect(scratch_tool_act, SIGNAL(triggered()), this, SLOT(scratch_tool()));
 
-    draw_rectangle_act = new QAction(tr("Kwadrat"), this);
+    draw_rectangle_act = new QAction(tr(""), this);
+    draw_rectangle_act->setIcon(QIcon("resources/cursor/square.png"));
     connect(draw_rectangle_act, SIGNAL(triggered()), this, SLOT(rectangle_tool()));
+
     text_tool_act = new QAction(tr("Text"), this);
+    text_tool_act->setIcon(QIcon("resources/cursor/text.png"));
     connect(text_tool_act, SIGNAL(triggered()), this, SLOT(text_tool()));
 
 
-    draw_circle_act = new QAction(tr("Okrąg"), this);
+    draw_circle_act = new QAction(tr(""), this);
+    draw_circle_act->setIcon(QIcon("resources/cursor/circle.png"));
     connect(draw_circle_act, SIGNAL(triggered()), this, SLOT(circle_tool()));
 
-    draw_straight_line_act = new QAction(tr("Linia"), this);
+    draw_straight_line_act = new QAction(tr(""), this);
+    draw_straight_line_act->setIcon(QIcon("resources/cursor/line.png"));
     connect(draw_straight_line_act, SIGNAL(triggered()), this, SLOT(straight_line_tool()));
 
-    draw_triangle_act = new QAction(tr("Trójkąt"), this);
+    draw_triangle_act = new QAction(tr(""), this);
+    draw_triangle_act->setIcon(QIcon("resources/cursor/triangle.png"));
     connect(draw_triangle_act, SIGNAL(triggered()), this, SLOT(triangle_tool()));
 
     draw_rectangular_triangle_act = new QAction(tr("Trójkąt kwadr"), this);
+    draw_rectangular_triangle_act->setIcon(QIcon("resources/cursor/recttriangle.png"));
     connect(draw_rectangular_triangle_act, SIGNAL(triggered()), this, SLOT(rectangular_triangle_tool()));
 }
 

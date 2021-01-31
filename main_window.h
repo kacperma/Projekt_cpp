@@ -69,8 +69,5 @@ private:
     QAction *text_tool_act;
     QList<QAction *> save_act;
 
-
-
-
 };
 #endif // MAIN_WINDOW_H
